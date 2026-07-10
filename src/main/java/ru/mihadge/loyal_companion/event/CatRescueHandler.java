@@ -122,6 +122,7 @@ public class CatRescueHandler {
                     && !below.is(Blocks.FIRE)
                     && !below.is(Blocks.SOUL_FIRE)
                     && !below.is(Blocks.MAGMA_BLOCK)
+                    && !below.is(Blocks.AIR)
                     && !below.is(Blocks.CACTUS)) {
 
                 animal.moveTo(
