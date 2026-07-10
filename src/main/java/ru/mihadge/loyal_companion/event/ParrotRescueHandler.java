@@ -38,6 +38,7 @@ public class ParrotRescueHandler {
                         event.getSource().is(DamageTypes.LAVA) ||
                         event.getSource().is(DamageTypes.DROWN) ||
                         event.getSource().is(DamageTypes.EXPLOSION) ||
+                        event.getSource().type().msgId().equals("outOfWorld") ||
                         event.getSource().is(DamageTypes.IN_FIRE);
 
         if (!dangerousDamage) {
