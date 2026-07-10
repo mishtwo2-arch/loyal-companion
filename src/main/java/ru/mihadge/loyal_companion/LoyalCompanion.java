@@ -10,6 +10,8 @@ import net.neoforged.fml.event.lifecycle.FMLCommonSetupEvent;
 import net.neoforged.neoforge.common.NeoForge;
 import net.neoforged.neoforge.event.server.ServerStartingEvent;
 import org.slf4j.Logger;
+import ru.mihadge.loyal_companion.event.CatRescueHandler;
+import ru.mihadge.loyal_companion.event.ParrotRescueHandler;
 import ru.mihadge.loyal_companion.event.WolfRescueHandler;
 
 @Mod(LoyalCompanion.MODID)
@@ -27,6 +29,8 @@ public class LoyalCompanion {
 
         NeoForge.EVENT_BUS.register(this);
         NeoForge.EVENT_BUS.register(new WolfRescueHandler());
+        NeoForge.EVENT_BUS.register(new CatRescueHandler());
+        NeoForge.EVENT_BUS.register(new ParrotRescueHandler());
 
         modContainer.registerConfig(ModConfig.Type.COMMON, Config.SPEC);
     }

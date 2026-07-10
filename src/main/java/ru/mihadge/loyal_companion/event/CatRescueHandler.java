@@ -7,29 +7,29 @@ import net.minecraft.world.damagesource.DamageTypes;
 import net.minecraft.world.effect.MobEffectInstance;
 import net.minecraft.world.effect.MobEffects;
 import net.minecraft.world.entity.TamableAnimal;
-import net.minecraft.world.entity.animal.Wolf;
+import net.minecraft.world.entity.animal.Cat;
 import net.minecraft.world.level.block.Blocks;
 import net.minecraft.world.level.block.state.BlockState;
 import net.neoforged.bus.api.SubscribeEvent;
 import net.neoforged.neoforge.event.entity.living.LivingDamageEvent;
 import ru.mihadge.loyal_companion.Config;
 
-public class WolfRescueHandler {
+public class CatRescueHandler {
 
     private static final String RESCUE_COOLDOWN = "loyal_companion_last_rescue";
 
     @SubscribeEvent
-    public void onWolfDamage(LivingDamageEvent.Pre event) {
+    public void onCatDamage(LivingDamageEvent.Pre event) {
 
-        if (!(event.getEntity() instanceof Wolf wolf)) {
+        if (!(event.getEntity() instanceof Cat cat)) {
             return;
         }
 
-        if (wolf.level().isClientSide()) {
+        if (cat.level().isClientSide()) {
             return;
         }
 
-        if (!wolf.isTame()) {
+        if (!cat.isTame()) {
             return;
         }
 
@@ -44,20 +44,20 @@ public class WolfRescueHandler {
             return;
         }
 
-        if (wolf.getHealth() > event.getNewDamage()) {
+        if (cat.getHealth() > event.getNewDamage()) {
             return;
         }
 
-        if (!(wolf.getOwner() instanceof ServerPlayer owner)) {
+        if (!(cat.getOwner() instanceof ServerPlayer owner)) {
             return;
         }
 
-        CompoundTag data = wolf.getPersistentData();
+        CompoundTag data = cat.getPersistentData();
 
-        long currentTime = wolf.level().getGameTime();
+        long currentTime = cat.level().getGameTime();
         long lastRescue = data.getLong(RESCUE_COOLDOWN);
 
-        if (currentTime - lastRescue < Config.RESCUE_COOLDOWN_WOLF.get() * 20L) {
+        if (currentTime - lastRescue < Config.RESCUE_COOLDOWN_CAT.get() * 20 ) {
             return;
         }
 
@@ -65,38 +65,38 @@ public class WolfRescueHandler {
 
         event.setNewDamage(0);
 
-        wolf.setHealth(1.0F);
+        cat.setHealth(1.0F);
 
-        wolf.invulnerableTime = Config.EFFECTS_DURATION_WOLF.get() * 20;
+        cat.invulnerableTime = Config.EFFECTS_DURATION_CAT.get() * 20;
 
-        wolf.clearFire();
-        wolf.setRemainingFireTicks(0);
+        cat.clearFire();
+        cat.setRemainingFireTicks(0);
 
-        wolf.addEffect(new MobEffectInstance(
+        cat.addEffect(new MobEffectInstance(
                 MobEffects.DAMAGE_RESISTANCE,
-                Config.EFFECTS_DURATION_WOLF.get() * 20,
+                Config.EFFECTS_DURATION_CAT.get() * 20,
                 4,
                 false,
                 true
         ));
 
-        wolf.addEffect(new MobEffectInstance(
+        cat.addEffect(new MobEffectInstance(
                 MobEffects.FIRE_RESISTANCE,
-                Config.EFFECTS_DURATION_WOLF.get() * 20,
+                Config.EFFECTS_DURATION_CAT.get() * 20,
                 0,
                 false,
                 true
         ));
 
-        wolf.addEffect(new MobEffectInstance(
+        cat.addEffect(new MobEffectInstance(
                 MobEffects.MOVEMENT_SLOWDOWN,
-                Config.EFFECTS_DURATION_WOLF.get() * 20,
+                Config.EFFECTS_DURATION_CAT.get() * 20,
                 2,
                 false,
                 true
         ));
 
-        teleportNearOwner(wolf, owner);
+        teleportNearOwner(cat, owner);
     }
 
 
