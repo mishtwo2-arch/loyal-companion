@@ -58,7 +58,7 @@ public class WolfRescueHandler {
         long currentTime = wolf.level().getGameTime();
         long lastRescue = data.getLong(RESCUE_COOLDOWN);
 
-        if (currentTime - lastRescue < Config.RESCUE_COOLDOWN_WOLF.get() * 20L) {
+        if (currentTime - lastRescue < Config.RESCUE_COOLDOWN_WOLF.get() * 20) {
             return;
         }
 
